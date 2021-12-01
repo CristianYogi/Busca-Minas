@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Busca Minas</title>
+</head>
+<body>
+    <main>
+        <div id="contenedor-info">
+            <div class="boton" id="boton-reiniciar"><img src="img/reiniciar.svg" alt=""></div>
+            <div id="tiempo"><label id="minutes">00</label>:<label id="seconds">00</label></div>
+            <div id="cantidad-minas">43</div>
+            <div id="dificultad-mensaje">Facil</div>
+            <div class="boton" id="boton-opciones"><img src="img/opciones.svg" alt=""></div>
+        </div>
+        <div id="tablero">
+
+            <div id="cartel-final">
+                <h1></h1>
+                <div id="cerrar">x</div>
+                <div id="boton-continuar">REINICIAR</div>
+            </div>
+
+            <div id="menu-opciones">
+                <h2>MENU</h2>
+                <div id="dificultad-opciones">
+                    <div class="boton-dificultad" id="facil">FACIL</div>
+                    <div class="boton-dificultad" id="normal">NORMAL</div>
+                    <div class="boton-dificultad" id="dificil">DIFICL</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="./js/tablero.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
