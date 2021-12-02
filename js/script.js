@@ -12,7 +12,7 @@ const botonCerrar = document.getElementById('cerrar')
 cantidadMinasMensaje.innerText = dificultad.facil.cantidadMinas
 const mina = "*"
 
-
+let listaBanderas = []
 
 let direcciones = [[-1, 0], [0, 1], [1, 0], [0, -1], [-1, 1], [1, 1], [1, -1], [-1, -1]]
 let direccionSinDiagonal = [[-1, 0], [0, 1], [1, 0], [0, -1]]
@@ -35,13 +35,13 @@ let secondsLabel = document.getElementById("seconds");
 let totalSeconds = 0;
 let interval = setInterval(setTime, 1000);
 
-let tamañoMinas = 5
+let tamañoMinas = 1
 let cantidadMinas = dificultad.facil.cantidadMinas
 let islasMinas = []
 
 let primerIsla = []
 let primerClick = true
-let primerIslaTamaño = 1
+let primerIslaTamaño = 10
 
 let islasVacias = []
 
@@ -146,6 +146,17 @@ function auxColorear(isla, color){
     }
 }
 
+function eliminarElementoLista(array, id){
+    
+    const index = array.indexOf(id);
+    
+    if (index > -1) {
+    array.splice(index, 1);
+    }
+
+    return array
+}
+
 //---------------------------------FUNCIONES-------------------------------------
 
 function eventoDificultad(elemento){
@@ -167,6 +178,7 @@ function modificarContadorMinas(sumar){
     }
 }
 
+
 function clickDerecho(elemento){
     elemento.preventDefault();
     
@@ -181,13 +193,35 @@ function clickDerecho(elemento){
         return 0
     }
 
-    if(cuadrado.style.backgroundColor == 'red'){
-        cuadrado.style.backgroundColor= ''
+    if(cuadrado.style.backgroundImage){
+        listaBanderas = eliminarElementoLista(listaBanderas, cuadrado.id)
+        cuadrado.style.backgroundImage= ''
         modificarContadorMinas(true)
+
     }else{
-        cuadrado.style.backgroundColor = 'red'
-        modificarContadorMinas(false)
+
+        let minas = parseInt(cantidadMinasMensaje.innerText)
+       
+        if(minas > 0){
+            modificarContadorMinas(false)
+            minas -= 1
+            listaBanderas.push(cuadrado.id)
+            cuadrado.style.backgroundImage = 'url(./img/bandera.svg)'
+        }
+        
+        if(minas == 0){
+               
+            let gano = comprobarVictoria()
+            if(gano){
+                termino = true
+                cartelFinal.style.display='flex'
+                let h1 = cartelFinal.firstElementChild
+                h1.innerText = 'GANASTE'
+                clearInterval(interval);
+            }
+        }
     }
+
 }
 
 
@@ -311,7 +345,7 @@ function revelarMinas(){
         let posicion = stringToindices(mina)
         let id = obtenerId(posicion)
         let cuadrado = document.getElementById(id)
-        cuadrado.style.backgroundColor='blue'
+        cuadrado.style.backgroundImage='url(./img/minas.svg)'
     });
 }
 
@@ -489,10 +523,15 @@ function reahacerTablero(){
 function reiniciar(){
     matrizTablero = []
     fila = []
-    interval = setInterval(setTime, 1000);
+    
     totalSeconds = 0;
+
+    clearInterval(interval);
+    interval = setInterval(setTime, 1000);
     secondsLabel.innerHTML = "00"
     minutesLabel.innerHTML = "00"
+    
+    listaBanderas = []
     termino = false
     islasMinas = []
     islasVacias = []
@@ -637,3 +676,18 @@ function ponerNumeros(){
         
     }
 }
+
+//COMPROBAR VICTORIA
+
+function comprobarVictoria(){
+    let gano = true
+    for (let i = 0; i < listaBanderas.length; i++) {
+        let indices = obtenerIndices(listaBanderas[i])
+        if(matrizTablero[indices[0]][indices[1]] != mina){
+            gano = false
+            break
+        }        
+
+    }
+    return gano
+}   

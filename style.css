@@ -39,6 +39,10 @@ main{
     width: var(--tamaño-cuadrado);
     height: var(--tamaño-cuadrado);
 
+    background-position: center;
+    background-size: 40%;
+    background-repeat: no-repeat;
+
     cursor: pointer;
     border: 1px solid black;
 
@@ -193,6 +197,11 @@ main{
     right: 3%;
     color: rgb(139, 139, 139);
     cursor: pointer;
+    padding: 0 4px;
+}
+#cerrar:hover{
+    
+    background-color: rgb(177, 177, 177);
 }
 
 

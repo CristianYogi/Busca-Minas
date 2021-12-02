@@ -4,15 +4,15 @@ const tablero = document.getElementById('tablero')
 let dificultad = {
     facil:{
         tamaño : 10,
-        cantidadMinas :  30
+        cantidadMinas :  15
     },
     normal:{
         tamaño : 15,
-        cantidadMinas :  120
+        cantidadMinas :  40
     },
     dificil:{
         tamaño : 20,
-        cantidadMinas :  150
+        cantidadMinas :  60
     }
 }
 
